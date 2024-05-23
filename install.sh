@@ -63,6 +63,18 @@ setup_rofi(){
     cp -rf rofi_source rofi_dest
 }
 
+kitty_conf(){
+    local kitty_dir="$HOME_DIR/.config/kitty/"
+    mkdir -p kitty_dir
+    mv ./kitty/* kitty_dir
+}
+
+fish_conf(){
+    local fish_dir="$HOME_DIR/.config/fish/"
+    mkdir -p fish_dir
+    mv ./fish/* fish_dir
+}
+
 double_monitor(){
     arandr
     echo 'ACTION=="change", RUN +="~/.config/awesome/arandr-auto/arandr_udev.sh' >> /etc/udev/rules.d/95-monitors.rules
@@ -71,7 +83,7 @@ double_monitor(){
 
 move_bin_scripts(){
     local scripts="$HOME_DIR/.config/awesome/scripts/"
-    mv "scripts/"* /bin/
+    mv "$scripts"/* /bin/
 }
 
 # Main function to orchestrate the setup
@@ -83,6 +95,8 @@ main() {
     arc_icons
     setup_rofi
     move_bin_scripts
+    fish_conf
+    kitty_conf
     echo "Installation and setup completed!"
 }
 
